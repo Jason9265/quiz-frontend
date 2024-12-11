@@ -58,16 +58,23 @@ export interface Quiz {
   questions: Question[];
 }
 
-export interface QuizResult {
+export interface QuestionResult {
+  question_id: string;
+  question_text: string;
+  correct: boolean;
+  points_earned: number;
+  submitted_answer: string | string[];
+  correct_answer: string | string[];
+  question_choices?: string | string[];
+  question_sentence?: string;
+}
+
+export interface QuizResultData {
   total_points: number;
   earned_points: number;
   percentage: number;
   passed: boolean;
-  results: {
-    question_id: string;
-    correct: boolean;
-    points_earned: number;
-  }[];
+  results: QuestionResult[];
 }
 
 export interface WordSelectQuestionProps {

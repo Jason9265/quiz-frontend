@@ -74,11 +74,11 @@ export const QuizPage: React.FC = () => {
       
       navigate(`/quiz/${quizId}/result`, {
         state: {
-          score: result.earned_points,
-          totalPoints: result.total_points,
-          passScore: quiz?.pass_score,
+          total_points: result.total_points,
+          earned_points: result.earned_points,
+          percentage: result.percentage,
           passed: result.passed,
-          percentage: result.percentage
+          results: result.results
         }
       });
     } catch (error) {
