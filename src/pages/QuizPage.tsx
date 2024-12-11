@@ -13,6 +13,7 @@ export const QuizPage: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const loadQuiz = async () => {
@@ -69,6 +70,9 @@ export const QuizPage: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
     try {
       const result = await api.submitQuiz(quizId!, answers, quiz?.title || '');
       
@@ -84,6 +88,8 @@ export const QuizPage: React.FC = () => {
       });
     } catch (error) {
       console.error('Failed to submit quiz:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -163,9 +169,20 @@ export const QuizPage: React.FC = () => {
           ) : (
             <button 
               onClick={handleSubmit}
-              className="px-4 py-2 rounded-lg font-medium transition-colors bg-blue-600 text-white hover:bg-blue-700"
+              disabled={isSubmitting}
+              className="px-4 py-2 rounded-lg font-medium transition-colors bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 flex items-center space-x-2"
             >
-              Submit Quiz
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span>Submitting...</span>
+                </>
+              ) : (
+                <span>Submit Quiz</span>
+              )}
             </button>
           )}
         </div>
