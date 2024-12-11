@@ -1,26 +1,43 @@
 import React from 'react';
+import { WordSelectQuestionProps } from '../types';
 
-interface WordSelectQuestionProps {
-  questionId: string;
-  text: string;
-  selectedAnswer: string;
-  onSelect: (questionId: string, answer: string) => void;
-}
+export const WordSelectQuestion: React.FC<WordSelectQuestionProps> = ({ 
+  questionId, 
+  text, 
+  selectedAnswers = [], 
+  onSelect 
+}) => {
+  // Split text and clean words of punctuation
+  const wordsWithPunctuation = text.split(' ');
+  const cleanWord = (word: string) => word.replace(/[.,;!?]$/, '');
 
-export const WordSelectQuestion: React.FC<WordSelectQuestionProps> = ({ questionId, text, selectedAnswer, onSelect }) => {
   return (
     <div>
       <div className="mb-4 text-sm font-medium text-gray-500">
-        Question Type: Word Selection
+        Question Type: Word Selection (Click words to select/deselect)
       </div>
-      <p className="mb-4">{text}</p>
-      <input 
-        type="text"
-        value={selectedAnswer}
-        onChange={(e) => onSelect(questionId, e.target.value)}
-        className="w-full p-2 border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-        placeholder="Type the missing word(s)"
-      />
+      <div className="space-x-2 leading-relaxed">
+        {wordsWithPunctuation.map((wordWithPunct, index) => {
+          const word = cleanWord(wordWithPunct);
+          const punctuation = wordWithPunct.slice(word.length);
+          
+          return (
+            <span key={index}>
+              <button
+                onClick={() => onSelect(questionId, word)}
+                className={`inline-block px-1 rounded ${
+                  selectedAnswers.includes(word)
+                    ? 'bg-blue-500 text-white'
+                    : 'hover:bg-gray-100'
+                }`}
+              >
+                {word}
+              </button>
+              {punctuation}
+            </span>
+          );
+        })}
+      </div>
     </div>
   );
 }; 

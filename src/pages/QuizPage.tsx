@@ -56,12 +56,21 @@ export const QuizPage: React.FC = () => {
     });
   };
 
-  const handleWordSelect = (questionId: string, answer: string) => {
-    setAnswers(prev => ({ ...prev, [questionId]: answer || '' }));
+  const handleWordSelect = (questionId: string, word: string) => {
+    setAnswers(prev => {
+      const currentAnswers = Array.isArray(prev[questionId]) ? prev[questionId] as string[] : [];
+      return {
+        ...prev,
+        [questionId]: currentAnswers.includes(word)
+          ? currentAnswers.filter(w => w !== word)
+          : [...currentAnswers, word]
+      };
+    });
   };
 
   const handleSubmit = async () => {
 
+    console.log(answers);
     try {
       const result = await api.submitQuiz(quizId!, answers);
       
@@ -115,8 +124,8 @@ export const QuizPage: React.FC = () => {
         return (
           <WordSelectQuestion
             questionId={question.id}
-            text={question.word_select_text?.text || ''}
-            selectedAnswer={answers[question.id] as string || ''}
+            text={question.options.text || ''}
+            selectedAnswers={answers[question.id] as string[] || []}
             onSelect={handleWordSelect}
           />
         );

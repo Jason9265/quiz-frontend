@@ -68,3 +68,10 @@ export interface QuizResult {
     points_earned: number;
   }[];
 }
+
+export interface WordSelectQuestionProps {
+  questionId: string;
+  text: string;
+  selectedAnswers: string[];
+  onSelect: (questionId: string, word: string) => void;
+}
