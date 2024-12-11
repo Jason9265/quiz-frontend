@@ -11,6 +11,12 @@ export const QuizHistory: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
+  // Calculate statistics
+  const totalQuizzes = history.length;
+  const averagePercentage = totalQuizzes > 0
+    ? Math.round(history.reduce((sum, item) => sum + item.percentage, 0) / totalQuizzes)
+    : 0;
+
   useEffect(() => {
     const fetchQuizHistory = async () => {
       try {
@@ -61,6 +67,17 @@ export const QuizHistory: React.FC = () => {
         <div className="text-gray-600">No quiz attempts yet.</div>
       ) : (
         <>
+          <div className="bg-white rounded-lg shadow p-6 mb-6 grid grid-cols-2 gap-4">
+            <div className="text-center">
+              <div className="text-gray-600 text-sm mb-1">Quizzes Completed</div>
+              <div className="text-3xl font-bold text-blue-600">{totalQuizzes}</div>
+            </div>
+            <div className="text-center">
+              <div className="text-gray-600 text-sm mb-1">Average Score</div>
+              <div className="text-3xl font-bold text-blue-600">{averagePercentage}%</div>
+            </div>
+          </div>
+
           <div className="space-y-4">
             {paginatedHistory.map((item) => (
               <div
