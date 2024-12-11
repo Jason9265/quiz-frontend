@@ -1,25 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
+import { Question, QuizData } from '../types';
 
-interface Question {
-  id: string;
-  text: string;
-  options: {
-    choices: string[];
-    correct_answer: string;
-  };
-  question_type: string;
-  points: number;
-}
-
-interface QuizData {
-  id: string;
-  title: string;
-  description: string;
-  pass_score: number;
-  questions: Question[];
-}
 
 export const Quiz: React.FC = () => {
   const { quizId } = useParams();

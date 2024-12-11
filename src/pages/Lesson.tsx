@@ -7,7 +7,6 @@ const mockLesson: LessonType = {
   id: '6756fbf15f8b1d4eb291bb77',
   title: 'Introduction to React',
   description: 'Learn the basics of React',
-  quizId: '6756fbf15f8b1d4eb291bb77'
 };
 
 export const Lesson: React.FC = () => {
@@ -15,7 +14,7 @@ export const Lesson: React.FC = () => {
   const navigate = useNavigate();
 
   const startQuiz = () => {
-    navigate(`/quiz/${mockLesson.quizId}`);
+    navigate(`/quiz/${mockLesson.id}`);
   };
 
   return (

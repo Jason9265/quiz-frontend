@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
+import { LoginCredentials, AuthResponse } from '../types';
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
