@@ -86,3 +86,15 @@ export interface WordSelectQuestionProps {
 }
 
 export type QuizAnswers = Record<string, string | string[]>;
+
+export interface QuizHistoryItem {
+  _id: string;
+  quiz_id: string;
+  quiz_title: string;
+  total_points: number;
+  earned_points: number;
+  percentage: number;
+  passed: boolean;
+  quiz_time: string;
+  results: QuestionResult[];
+}

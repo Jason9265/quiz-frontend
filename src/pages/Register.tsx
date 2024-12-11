@@ -75,6 +75,10 @@ export const Register: React.FC = () => {
             </div>
           </div>
 
+          <div className="text-sm text-gray-500 italic">
+            Note: Password no encryption or length limit yet.
+          </div>
+
           <div>
             <button
               type="submit"

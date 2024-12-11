@@ -8,6 +8,7 @@ import { QuizResult } from './pages/QuizResult';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Register } from './pages/Register';
+import { QuizHistory } from './pages/QuizHistory';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
               <Route path="/quiz/:quizId" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
               <Route path="/quiz/:quizId/result" element={<ProtectedRoute><QuizResult /></ProtectedRoute>} />
               <Route path="/register" element={<Register />} />
+              <Route path="/quiz-history" element={<ProtectedRoute><QuizHistory /></ProtectedRoute>} />
               
               <Route path="/" element={<Navigate to="/lessons" replace />} />
             </Routes>

@@ -32,7 +32,25 @@ export const api = {
     });
 
     if (!response.ok) throw new Error('Failed to submit quiz');
-    return response.json();
+
+    const quizResponse = await response.json();
+    
+    // Create quiz history entry
+    const historyData = {
+      ...quizResponse,
+      user_name: JSON.parse(localStorage.getItem('user') || '{}').username,
+      quiz_time: new Date().toISOString()
+    };
+
+    await fetch(`${BASE_URL}/auth/quiz-history/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(historyData)
+    });
+
+    return quizResponse;
   },
 
   async register(data: { username: string; password: string }) {
@@ -63,7 +81,6 @@ export const api = {
       });
 
       const responseData = await response.json();
-      console.log('Login Response:', responseData);
 
       if (!response.ok) {
         throw new Error(responseData.error || 'Login failed');
@@ -74,5 +91,11 @@ export const api = {
       console.error('Login error:', error);
       throw error;
     }
+  },
+
+  async getQuizHistory(user_id: string) {
+    const response = await fetch(`${BASE_URL}/auth/quiz-history/user/${user_id}`);
+    if (!response.ok) throw new Error('Failed to fetch quiz history');
+    return response.json();
   },
 };
