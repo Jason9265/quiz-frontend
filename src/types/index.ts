@@ -40,6 +40,7 @@ export interface Question {
   text: string;
   points: number;
   options: {
+    text: string;
     choices: string[];
     correct_answer?: string | string[];
   };
@@ -75,3 +76,5 @@ export interface WordSelectQuestionProps {
   selectedAnswers: string[];
   onSelect: (questionId: string, word: string) => void;
 }
+
+export type QuizAnswers = Record<string, string | string[]>;

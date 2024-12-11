@@ -23,7 +23,7 @@ export const QuizPage: React.FC = () => {
           
           // Initialize answers for all questions
           const initialAnswers: Record<string, string | string[]> = {};
-          quizData.questions.forEach(question => {
+          quizData.questions.forEach((question: Question) => {
             if (question.question_type === 'single') {
               initialAnswers[question.id] = '';
             } else {
@@ -69,8 +69,6 @@ export const QuizPage: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-
-    console.log(answers);
     try {
       const result = await api.submitQuiz(quizId!, answers);
       

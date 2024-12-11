@@ -1,3 +1,5 @@
+import { QuizAnswers } from '../types';
+
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const api = {
@@ -13,7 +15,7 @@ export const api = {
     return response.json();
   },
 
-  async submitQuiz(quizId: string, answers: Record<string, string>) {
+  async submitQuiz(quizId: string, answers: QuizAnswers) {
     const formattedAnswers = Object.entries(answers).map(([questionId, answer]) => ({
       question_id: questionId,
       answer: answer
