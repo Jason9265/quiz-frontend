@@ -70,6 +70,7 @@ export interface QuestionResult {
 }
 
 export interface QuizResultData {
+  quiz_id: string;
   total_points: number;
   earned_points: number;
   percentage: number;

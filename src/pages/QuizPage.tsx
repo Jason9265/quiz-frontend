@@ -74,6 +74,7 @@ export const QuizPage: React.FC = () => {
       
       navigate(`/quiz/${quizId}/result`, {
         state: {
+          quiz_id: result.quiz_id,
           total_points: result.total_points,
           earned_points: result.earned_points,
           percentage: result.percentage,
