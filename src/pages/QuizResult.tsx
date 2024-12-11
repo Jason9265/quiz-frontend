@@ -1,13 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { QuizResultData } from '../types';
+import { api } from '../services/api';
 
 export const QuizResult: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const quizResult = location.state as QuizResultData;
-  
+  const [lessonTitle, setLessonTitle] = useState('');
   const quizId = location.pathname.split('/')[2];
+
+  useEffect(() => {
+    const fetchQuizTitle = async () => {
+      try {
+        const quizData = await api.getQuiz(quizId);
+        setLessonTitle(quizData.title);
+        document.title = `Quiz Results: ${quizData.title} | Learning Platform`;
+      } catch (error) {
+        console.error('Failed to fetch quiz title:', error);
+      }
+    };
+
+    fetchQuizTitle();
+    
+    return () => {
+      document.title = 'Learning Platform';
+    };
+  }, [quizId]);
 
   if (!quizResult || !quizResult.results) {
     return (
@@ -27,6 +46,9 @@ export const QuizResult: React.FC = () => {
     <div className="container mx-auto p-6">
       <div className="max-w-3xl mx-auto bg-white rounded-lg shadow p-8">
         <div className="text-center mb-8">
+          {lessonTitle && (
+            <h2 className="text-2xl font-semibold text-gray-700 mb-4">{lessonTitle}</h2>
+          )}
           <h1 className="text-3xl font-bold mb-6">Quiz Results</h1>
           <div className="text-6xl font-bold mb-4">
             {quizResult.percentage}%

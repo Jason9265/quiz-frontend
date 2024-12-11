@@ -69,7 +69,7 @@ export const QuizHistory: React.FC = () => {
               >
                 <div className="flex justify-between items-start">
                   <div>
-                    <h2 className="text-xl font-semibold mb-2">{item.quiz_title}</h2>
+                    <h2 className="text-xl font-semibold mb-2">{item.title}</h2>
                     <p className="text-gray-600">
                       Completed: {new Date(item.quiz_time).toLocaleDateString() + ' ' + new Date(item.quiz_time).toLocaleTimeString()}
                     </p>

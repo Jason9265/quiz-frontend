@@ -70,7 +70,7 @@ export const QuizPage: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      const result = await api.submitQuiz(quizId!, answers);
+      const result = await api.submitQuiz(quizId!, answers, quiz?.title || '');
       
       navigate(`/quiz/${quizId}/result`, {
         state: {

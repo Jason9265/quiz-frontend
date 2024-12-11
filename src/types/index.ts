@@ -96,5 +96,6 @@ export interface QuizHistoryItem {
   percentage: number;
   passed: boolean;
   quiz_time: string;
+  title: string;
   results: QuestionResult[];
 }

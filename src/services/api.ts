@@ -15,7 +15,7 @@ export const api = {
     return response.json();
   },
 
-  async submitQuiz(quizId: string, answers: QuizAnswers) {
+  async submitQuiz(quizId: string, answers: QuizAnswers, title: string) {
     const formattedAnswers = Object.entries(answers).map(([questionId, answer]) => ({
       question_id: questionId,
       answer: answer
@@ -39,6 +39,7 @@ export const api = {
     const historyData = {
       ...quizResponse,
       user_name: JSON.parse(localStorage.getItem('user') || '{}').username,
+      title: title,
       quiz_time: new Date().toISOString()
     };
 
