@@ -6,6 +6,10 @@ This is a React-based frontend application for a quiz platform. It is built usin
 
 You can view a live demo of the application [http://3.1.84.199:5173](http://3.1.84.199:5173).
 
+## Django API Repo
+
+Django API Repo: [https://github.com/Jason9265/quiz-backend](https://github.com/Jason9265/quiz-backend)
+
 ## Features
 
 - User authentication (register and login)
