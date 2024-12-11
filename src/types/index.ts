@@ -31,10 +31,12 @@ export interface Lesson {
 }
 
 // Quiz Types
+export type QuestionType = 'single' | 'multiple' | 'word_select';
+
 export interface Question {
   id: string;
   quiz_id: string;
-  question_type: string;
+  question_type: QuestionType;
   text: string;
   points: number;
   options: {
@@ -47,7 +49,7 @@ export interface Question {
   };
 }
 
-export interface QuizData {
+export interface Quiz {
   id: string;
   title: string;
   description: string;
